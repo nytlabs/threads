@@ -44,17 +44,19 @@ for thread in data:
 			keywords[keyword["content"]].append(article["published"]["$date"])
 			keyword_types[keyword["content"]] = keyword["type"]
 
-	for entity, date in entities.items():
+	for entity, dates in entities.items():
 		th.entities.append({
 			"content": entity,
-			"dates": date,
+			# "dates": list(set(dates)),
+			"dates": dates,
 			"type": entity_types[entity]
 		})
 
-	for keyword, date in keywords.items():
+	for keyword, dates in keywords.items():
 		th.keywords.append({
 			"content": keyword,
-			"dates": date,
+			# "dates": list(set(dates)),
+			"dates": dates,
 			"type": keyword_types[keyword]
 		})
 
