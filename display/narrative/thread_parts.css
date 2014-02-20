@@ -1,42 +1,130 @@
 body,html {
 	font-family: Arial, Helvetica, sans-serif;
 }
+#wrapper {
+	width:90%;
+	margin:auto;
+}
+#picker {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0px;
+	padding: 10px;
+	font-size:1em;
+	background-color: #333;
+	color:#fff;
+	text-transform: uppercase;
+	margin: 20px 0px 0px 0px;
+}
+#top_entities {
+	display: none;
+	border-bottom; 1px solid #ccc;
+}
+.top_list {
+	float:left;
+	width:20%;
+	padding:2%;
+}
+.top_list h2:hover {
+	cursor: pointer;
+}
+.top_list ol {
+	margin:0px;
+	padding:20px;
+	line-height: 1.5em;
+}
 
+#entity_table {
+	width: 100%;
+	padding:20px 0px;
+}
+
+#entity_table td {
+	text-align: center;
+	font-size: 2em;
+	max-width:6px;
+	height: 1px;
+	padding:0px;
+	margin:0px;
+	border:none;
+	margin:0px;
+}
+#entity_table td:hover {
+	cursor: pointer;
+} 
+#entity_table tr:hover {
+	background-color: #f2f2f2;
+}
 #entity_table .entity_name {
 	border: none;
 	font-size: 1em;
 	text-align: left;
+	white-space:nowrap;
+	max-width: none;
+	padding: 5px 25px;
+	background-color: #fff;
+	opacity:1;
 }
 #entity_table #header td{
 	font-size: 1em;
 	font-weight: bold;
-/*	display: none;
-*/}
-#entity_table #header td:first-child {
-	display: block;
+	opacity: 0;
+	padding:10px 0px;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
-#entity_table #header td:last-child {
-	display: block;
+#entity_table #header td:nth-child(9n+2), #entity_table #header td:first-child {
+	opacity: 1;
 }
-#entity_table tr {
-	margin:10px;
+
+#popup {
+	display:none;
+	position: absolute;
+	top:0px;
+	left:0px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	z-index:1000;
+	-webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
+	box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.25);
 }
-#entity_table td {
-	text-align: center;
-	font-size: 2em;
-	border:none;
-	margin:3px;
-	padding: 0px 7px;
+ 
+#popup_close {
+	width: 100%;
+	text-align: right;
+	margin:10px 0px;
 }
-.topic {
-	color: red;
+
+
+.topic, #top_topic h2 {
+	color: #E73F3F;
 }
-.nyt_per {
-	color: blue;
+.topic td {
+	background-color: #E73F3F;
+	opacity: 0;	
 }
-.nyt_geo {
-	color: green;
+.nyt_per, #top_nyt_per h2 {
+	color: #92BA24;
 }
-.nyt_org, .nyt_org_all {
-	color: orange;
+.nyt_per td {
+	background-color: #92BA24;	
+	opacity: 0;	
+}
+.nyt_geo, #top_nyt_geo h2 {
+	color: #6D9DD1;
+}
+.nyt_geo td {
+	background-color: #6D9DD1;	
+	opacity: 0;	
+}
+.nyt_org, .nyt_org_all, #top_nyt_org h2 {
+	color: #7E45D3;
+}
+.nyt_org td, .nyt_org_all td {
+	background-color: #7E45D3;	
+	opacity: 0;	
 }

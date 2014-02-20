@@ -7,7 +7,12 @@
 	<script type="text/javascript" src="thread_parts.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			populateThreads("thread_parts.json");
+			$('#picker').change(function(){
+				$('ol').html('');
+				$('#entity_table').html('');
+				populateThreads("thread_parts.json",$(this).val());
+			})
+				
 		});
 	</script>
 	<link rel="stylesheet" type="text/css" href="thread_parts.css">
@@ -15,12 +20,44 @@
 <body>
 
 <div id="wrapper">
+	<div id="top_nav">
+		<div id="dropdown">
+			View thread: 
+			<select id="picker">
+				<option value="null" selected>Select one</option>
+				<option value="0">0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+			</select>
+		</div>
+		<div id="legend">
+			
+		</div>
+
+	</div>
+	
 	<div id="top_entities">
-		
+		<div id="top_topic" class="top_list"><h2>Topics</h2><ol></ol></div>
+		<div id="top_nyt_per" class="top_list"><h2>Key Players</h2><ol></ol></div>
+		<div id="top_nyt_geo" class="top_list"><h2>Locations</h2><ol></ol></div>
+		<div id="top_nyt_org" class="top_list"><h2>Organizations</h2><ol></ol></div>
+		<div style="clear: both;"></div>
 	</div>
 	<table id="entity_table">
 
 	</table>
+</div>
+
+<div id="popup">
+	<div id="popup_content">Loading articles...</div>
 </div>
 
 </body>
