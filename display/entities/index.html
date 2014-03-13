@@ -7,9 +7,11 @@
 	<script type="text/javascript" src="thread_parts.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var meta_titles = ["NYC Mayoral Race", "New Jersey Culture Listings", "Federal Budget Crisis", "German Elections", "Facebook / Google / Twitter Trifecta", "Immigration Debate", "Healthcare Reform / Affordable Care Act", "Edward Snowden / NSA", "Syria", "Texas Abortion Debate", "U.S. Response to Syria"]
 			$('#picker').change(function(){
 				$('ol').html('');
 				$('#entity_table').html('');
+				$('#title').html(meta_titles[$(this).val()])
 				populateThreads("thread_parts.json",$(this).val());
 			})
 				
@@ -21,27 +23,25 @@
 
 <div id="wrapper">
 	<div id="top_nav">
+		<h1 id="title">Select a thread to begin &rarr;</h1>
 		<div id="dropdown">
 			View thread: 
 			<select id="picker">
 				<option value="null" selected>Select one</option>
-				<option value="0">0</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
+				<option value="0">NYC Mayoral Race</option>
+				<option value="1">NJ Culture Listings</option>
+				<option value="2">Federal Budget Crisis</option>
+				<option value="3">German Elections</option>
+				<option value="4">Facebook / Google / Twitter Trifecta</option>
+				<option value="5">Immigration Debate</option>
+				<option value="6">Healthcare Reform / Affordable Care Act</option>
+				<option value="7">Edward Snowden / NSA</option>
+				<option value="8">Syria Unrest</option>
+				<option value="9">Texas Abortion Debate</option>
+				<option value="10">U.S. Response to Syria</option>
 			</select>
 		</div>
-		<div id="legend">
-			
-		</div>
-
+		<div style="clear:both;"></div>
 	</div>
 	
 	<div id="top_entities">

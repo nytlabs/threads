@@ -3,6 +3,8 @@ var top_nyt_per = [];
 var top_nyt_geo = [];
 var top_nyt_org = [];
 
+
+
 function populateThreads(jsonFile, index) {
 	$.getJSON( jsonFile, function( data ) {
 
@@ -95,14 +97,14 @@ function populateThreads(jsonFile, index) {
 				$('#popup').css('left', e.pageX )
 				$('#popup').show();
 			}
-			/*else {
+			else {
 				$('#popup').hide();
-			}*/
+			}
 		})
-		/*$('#entity_table').on('mouseleave', function(e){
+		$('#entity_table').on('mouseleave', function(e){
 			$('#popup').hide();
 			$('#popup_content').html('Loading articles...');
-		})*/
+		})
 
 		$('.top_list').children('h2').click(function(e) {
 			console.log("clicked");
