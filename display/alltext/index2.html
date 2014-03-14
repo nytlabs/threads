@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>news threads</title>
+	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="reset.css">
+	<link rel="stylesheet" type="text/css" href="alltext2.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="alltext2.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			getText('threads_entities_clicks_positions.json');
+			topTens();
+		})
+	</script>
+</head>
+<body>
+<div id="wrapper">
+	<ul id="nav">
+		<li id="article_count"></li>
+		<li><a id="nyt_per">People</a></li>
+		<li><a id="nyt_geo">Places</a></li>
+		<li><a id="topic">Topics</a></li>
+		<li><a id="nyt_org">Organizations</a></li>
+		<li><a id="quote">Quotes</a></li>
+	</ul>
+	<div id="details">
+		<!-- <div id="begin"></div>
+		<div id="end"></div>
+		<br class="clear" /> -->
+		<div id="top_topic" class="top_list"><h2>Topics</h2><ol></ol></div>
+		<div id="top_nyt_per" class="top_list"><h2>People</h2><ol></ol></div>
+		<div id="top_nyt_geo" class="top_list"><h2>Places</h2><ol></ol></div>
+		<div id="top_nyt_org" class="top_list"><h2>Organizations</h2><ol></ol></div>
+		<div style="clear: both;"></div>
+	</div>
+	<div id="main">
+
+	</div>
+</div>
+</body>
+</html>

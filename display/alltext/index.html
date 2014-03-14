@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>news threads</title>
+	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="reset.css">
+	<link rel="stylesheet" type="text/css" href="alltext.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="alltext.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			getText('threads_entities_clicks_positions.json');
+		})
+	</script>
+</head>
+<body>
+<div id="wrapper">
+	<ul id="nav">
+		<li id="article_count"></li>
+		<li><a id="nyt_per">People</a></li>
+		<li><a id="nyt_geo">Places</a></li>
+		<li><a id="topic">Topics</a></li>
+		<li><a id="nyt_org">Organizations</a></li>
+		<li><a id="quote">Quotes</a></li>
+	</ul>
+	<div id="details">
+
+	</div>
+	<div id="main">
+
+	</div>
+</div>
+</body>
+</html>
