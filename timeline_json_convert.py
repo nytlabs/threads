@@ -19,6 +19,7 @@ class TimelineEntry:
 	def __init__(self):
 		self.date = None
 		self.articles = []
+		self.photos = []
 
 class Article:
 	def __init__(self):
@@ -56,19 +57,21 @@ for thread in data:
 
 	th = Thread()
 	th.num_articles = len(articles)
-	th.begin_date = datetime.date.fromtimestamp(articles[0]["published"]["$date"] / 1e3)
-	th.end_date = datetime.date.fromtimestamp(articles[-1]["published"]["$date"] / 1e3)
+	begin_date = datetime.date.fromtimestamp(articles[0]["published"]["$date"] / 1e3)
+	end_date = datetime.date.fromtimestamp(articles[-1]["published"]["$date"] / 1e3)
+	th.begin_date = str(begin_date)
+	th.end_date = str(end_date)
 	th.keywords = thread["keywords"]
 
 	#generate dates in date range
-	for result in daterange(th.begin_date, th.end_date, datetime.timedelta(days=1)):
+	for result in daterange(begin_date, end_date, datetime.timedelta(days=1)):
 		e = TimelineEntry()
-		e.date = result
+		e.date = str(result)
 		th.entries.append(e.__dict__)
 
 	for entry in th.entries:
 		for article in articles:
-			article_date = datetime.date.fromtimestamp(article["published"]["$date"] / 1e3)
+			article_date = str(datetime.date.fromtimestamp(article["published"]["$date"] / 1e3))
 			if article_date == entry["date"]:
 				a = Article()
 				a.headline = article["headline"]
@@ -84,7 +87,17 @@ for thread in data:
 				a.authors = article["authors"]
 				entry["articles"].append(a.__dict__)
 
+				if article["photo_url"] is not None:
+					p = Photo()
+					p.url = article["photo_url"]
+					p.article_url = a.url
+					p.major = a.major
+					entry["photos"].append(p.__dict__)
+
 	threads.append(th.__dict__)
+
+print threads[0]["entries"][29]
+output_file.write(json.dumps(threads))
 
 
 

@@ -1,0 +1,84 @@
+/* GENERAL */
+body,html {
+}
+#wrapper {
+	width:90%;
+	min-width:1000px;
+	margin:30px auto;
+}
+.clear {
+	clear: both;
+}
+
+/* NAV */
+#title {
+	float: left;
+	font-size: 1.5em;
+}
+#nav {
+	float: right;
+	list-style: none;
+	margin: 10px 0px 50px 0px;
+	padding:0px;
+}
+#nav li {
+	display: inline-block;
+}
+
+/* TIMELINE */
+#timeline {
+	width:100%;
+	text-align:center; 
+	border-bottom: 1px solid #000; 
+	line-height:0.1em; 
+	margin:10px 0 20px;
+}
+#begin_date {
+	float:left;
+	background:#fff; 
+	padding:0px 10px 0px 0px; 
+}
+#end_date {
+	float:right;
+	background:#fff; 
+	padding:0px 0px 0px 10px; 
+}
+#points {
+	position: absolute;
+	height: 7px;
+	margin-top: -3.5px;
+}
+.pt {
+	height: 7px;
+	display: inline-block;
+	margin: 0px 1px;
+}
+.pt.fill {
+	background-color: black;
+}
+.pt.nofill {
+	background-color: none;
+}
+.pt.on {
+	background-color: #ED1C24;
+	width:120%;
+}
+#playhead {
+	background-color: #ccc;
+	height: 28px;
+	padding:4px;
+	position: absolute;
+	top:0px;
+	left:0px;
+	z-index: -1;
+}
+
+/* HEADLINES */
+#headline {
+	margin:50px 0px;
+	text-align: center;
+}
+#headline h1 {
+	font-size: 1.8em;
+	line-height: 2em;	
+}
