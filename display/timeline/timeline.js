@@ -72,8 +72,17 @@ function playTimeline() {
 ////////////////////////////////////////////////////
 
 function placePoint() {
+	var major = false;
+	$.each(this["articles"], function(k,v) {
+		if (v["major"] == true) {
+			major = true;
+		}
+	})
 	if (this["articles"].length > 0) {
 		var style = "fill";
+		if (major == true) {
+			var style = "fill major"
+		}
 	}
 	else {
 		var style = "nofill";

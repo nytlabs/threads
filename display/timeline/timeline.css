@@ -66,10 +66,13 @@ body,html {
 	margin: 0px 1px;
 }
 .pt.fill {
-	background-color: black;
+	background-color: #999;
 }
 .pt.nofill {
 	background-color: none;
+}
+.pt.major {
+	background-color: black;
 }
 .pt.on {
 	background-color: #ED1C24;
