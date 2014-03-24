@@ -2,11 +2,13 @@
 <html>
 <head>
 	<title>news threads</title>
-	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="reset.css">
 	<link rel="stylesheet" type="text/css" href="timeline.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="number_converter.js"></script>
 	<script type="text/javascript" src="timeline.js"></script>
+	<script type="text/javascript" src="interactions.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#title').html(thread_titles[threadID]);
@@ -24,25 +26,32 @@
 	<div id="top">
 		<h1 id="title"></h1>
 		<ul id="nav">
-			<li id="article_count"></li>
-			<li><a id="nyt_per">People</a></li>
-			<li><a id="nyt_geo">Places</a></li>
-			<li><a id="topic">Topics</a></li>
-			<li><a id="nyt_org">Organizations</a></li>
-			<li><a id="quote">Quotes</a></li>
+			<li><a id="articles"><span id="article_count" class="red">0</span> articles</a></li>
+			<li><a id="words"><span id="word_count" class="red">0</span> words</a></li>
+			<li><a id="pv"><span id="pv_count" class="red">0</span> pageviews</a></li>
+			<li><a id="nyt_per"><span id="nyt_per_count" class="red">0</span> people</a></li>
+			<li><a id="nyt_geo"><span id="nyt_geo_count" class="red">0</span> places</a></li>
+			<li><a id="topic"><span id="nyt_topic_count" class="red">0</span> topics</a></li>
+			<li><a id="quote"><span id="quote_count" class="red">0</span> quotes</a></li>
 		</ul>
 		<br class="clear" />
 	</div>
 
 
 	<div id="timeline">
-		<div id="begin_date"></div>
+		<div id="begin_date" class="date"></div>
 		<div id="points"></div>
 		<div id="playhead"></div>
-		<div id="end_date"></div>
+		<div id="end_date" class="date"></div>
 	</div>
+	<br class="clear" />
 	<div id="main">
-		<div id="headline"></h1> 
+		<div id="headline"></div> 
+		<br class="clear" />
+		<h2 id="major"></h2>
+		<div id="maintext">
+		</div>
+		
 	</div>
 </div>
 </body>

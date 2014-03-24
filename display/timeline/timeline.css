@@ -1,5 +1,6 @@
 /* GENERAL */
 body,html {
+	font-family: Georgia, serif;
 }
 #wrapper {
 	width:90%;
@@ -8,6 +9,9 @@ body,html {
 }
 .clear {
 	clear: both;
+}
+.red {
+	color: #ED1C24;
 }
 
 /* NAV */
@@ -20,9 +24,13 @@ body,html {
 	list-style: none;
 	margin: 10px 0px 50px 0px;
 	padding:0px;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	font-size: 0.8em;
 }
 #nav li {
 	display: inline-block;
+	margin: 0px 0px 0px 20px;
 }
 
 /* TIMELINE */
@@ -31,7 +39,11 @@ body,html {
 	text-align:center; 
 	border-bottom: 1px solid #000; 
 	line-height:0.1em; 
-	margin:10px 0 20px;
+	margin:10px 0 30px;
+}
+.date {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0.8em;
 }
 #begin_date {
 	float:left;
@@ -75,10 +87,51 @@ body,html {
 
 /* HEADLINES */
 #headline {
-	margin:50px 0px;
+	height:60px;
 	text-align: center;
 }
 #headline h1 {
-	font-size: 1.8em;
-	line-height: 2em;	
+	font-size: 1.3em;
 }
+
+/* ARTICLES */
+#main {
+	margin-top: 20px;
+}
+#major {
+	display: block;
+	font-family: 'Open Sans', sans-serif;
+	text-transform: uppercase;
+	font-size: 0.7em;
+	color:#ccc;
+	text-align: center;
+	margin:10px 0px;
+}
+.article {
+	font-size:3px;
+	display: inline-block;
+	width:10%;
+	padding:10px;
+	border-right:1px solid #ccc;
+	vertical-align:top;
+/*	text-align: justify;
+*/}
+.article:first-child {
+	padding-left:0px;
+}
+.article:last-child {
+	border:none;
+	padding-right:0px;
+}
+.article_inner {
+	opacity:0;
+}
+.article p {
+	display: block;
+	margin:3px 0px;
+}
+
+
+
+
+

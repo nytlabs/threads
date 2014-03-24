@@ -9,7 +9,8 @@ threads = []
 
 class Thread:
      def __init__(self):
-         self.num_articles = None
+         self.num_articles = 0
+         self.major_articles = 0
          self.begin_date = None
          self.end_date = None
          self.entries = []	
@@ -20,17 +21,23 @@ class TimelineEntry:
 		self.date = None
 		self.articles = []
 		self.photos = []
+		self.nyt_per = 0
+		self.nyt_geo = 0
+		self.nyt_topic = 0
 
 class Article:
 	def __init__(self):
 		self.headline = None
 		self.summary = None
+		self.wordcount = 0
+		self.clicks = 0
 		self.url = None
 		self.body = None
 		self.print_position = None
 		self.major = False
 		self.section = None
 		self.authors = []
+		self.num_quotes = 0
 
 class Event:
 	def __init__(self):
@@ -76,6 +83,8 @@ for thread in data:
 				a = Article()
 				a.headline = article["headline"]
 				a.summary = article["summary"]
+				a.wordcount = article["word_count"]
+				a.clicks = article["clicks"]
 				a.url = article["_id"]
 				a.body = article["body"]
 				a.print_position = article["print_position"]
@@ -83,8 +92,10 @@ for thread in data:
 					pos_num = int(re.sub("[^0-9]", "", a.print_position))
 				if pos_num < 4:
 					a.major = True
+					th.major_articles += 1
 				a.section = article["section"]
 				a.authors = article["authors"]
+				a.num_quotes = article["num_quotes"]
 				entry["articles"].append(a.__dict__)
 
 				if article["photo_url"] is not None:
@@ -93,6 +104,14 @@ for thread in data:
 					p.article_url = a.url
 					p.major = a.major
 					entry["photos"].append(p.__dict__)
+
+				for entity in article["entities"]:
+					if entity["type"] == "topic":
+						type = "nyt_topic"
+					else:
+						type = entity["type"]
+					if type in entry:
+						entry[type] += 1
 
 	threads.append(th.__dict__)
 

@@ -1,12 +1,21 @@
-var threadID = 0;
+var thread_titles = ["NYC Mayoral Race", "New Jersey Culture Listings", "Federal Budget Crisis", "German Elections", "Facebook / Google / Twitter Trifecta", "Immigration Debate", "Healthcare Reform / Affordable Care Act", "Edward Snowden / NSA", "Syria", "Texas Abortion Debate", "U.S. Response to Syria"]
+var threadID = getParam('thread');
+console.log(threadID)
 var json;
 var entities = [];
 var alltext = ''
 major = 0;
-var thread_titles = ["NYC Mayoral Race", "New Jersey Culture Listings", "Federal Budget Crisis", "German Elections", "Facebook / Google / Twitter Trifecta", "Immigration Debate", "Healthcare Reform / Affordable Care Act", "Edward Snowden / NSA", "Syria", "Texas Abortion Debate", "U.S. Response to Syria"]
 var selected_date_index = 0;
 var t;
 var interval = 20; //how fast the timeline plays
+var article_count = 0;
+var word_count = 0;
+var pv_count = 0;
+var nyt_per_count = 0;
+var nyt_geo_count = 0;
+var nyt_topic_count = 0;
+var quote_count = 0;
+
 
 
 function makeTimeline() {
@@ -32,12 +41,14 @@ function makeTimeline() {
 	var pt_width = $('#points').width() / json["entries"].length - 2;
 	$('.pt').css('width', pt_width + 'px');
 	$('playhead').css('width', pt_width + 'px');
+
+	//load hidden articles
+	loadArticles()
 }
 
 function playTimeline() {
 	$('.pt').removeClass('on');
 	var date = json["entries"][selected_date_index]["date"];
-	console.log("playdate="+date)
 	var pt = $(".pt[data-date='" + date +"']");
 	$( "#playhead" ).animate({left: $(pt).offset().left + 'px'}, 0 , "linear");
 
@@ -47,10 +58,12 @@ function playTimeline() {
 	}
 	selected_date_index++;
 	
-	if (selected_date_index == json["entries"].length -1) {
+	if (selected_date_index == json["entries"].length) {
 		$('#headline').html('');
 		$( "#playhead" ).animate({left: $('#points').offset().left + 'px'}, 1000 , "linear");
+		$('#headline').slideUp('slow');
 		clearInterval(t);
+		initActions();
 	}
 	
 }
@@ -60,7 +73,6 @@ function playTimeline() {
 
 function placePoint() {
 	if (this["articles"].length > 0) {
-		console.log(this)
 		var style = "fill";
 	}
 	else {
@@ -70,17 +82,61 @@ function placePoint() {
 	$('#points').append(pt);
 }
 
-
-function loadContent(entry) {
-	console.log("entrydate="+entry["date"])
-	$('#headline').html('');
-	console.log(entry)
-	$.each(entry["articles"], function(k,v) {
-		$('#headline').append('<h1>'+v["headline"]+'</h1>')
+function loadArticles() {
+	$('#major').html("Top articles ("+json["major_articles"]+")");
+	$.each(json["entries"], function(k,v) {
+		$.each(v["articles"], function(k,v) {
+			if(v["major"] == true) {
+				var body = strip(v["body"]);
+				$('#maintext').append('<div class="article" id="'+v["url"]+'" data-headline="'+v["headline"]+'"><div class="article_inner"><h1>'+v["headline"]+'</h1>'+'<div class="article_text">'+body+'</div></div></div>');
+			}
+		});
 	});
+
+	//make articles the right width
+	$('.article').css('width', (100 / json["major_articles"]) - 1.5 + '%');
 }
 
-///////////////////////////////////////////////////
+function loadContent(entry) {
+	//clear previous headlines
+	$('#headline').html(''); 
+
+	//update headlines and data
+	$.each(entry["articles"], function(k,v) {
+		$('#headline').append('<h1>'+v["headline"]+'</h1>')
+		word_count += v["wordcount"];
+		pv_count += v["clicks"];
+		quote_count += v["num_quotes"];
+
+		//fade out previously highlighted articles
+		$('.article[id="'+v["url"]+'"').prevAll().css('opacity',0.5);
+		//show the article text if it's a major article
+		if (v["major"] == true) {
+			if ($('.article[id="'+v["url"]+'"').is(':last-child') == false) {
+				$('.article[id="'+v["url"]+'"').children('.article_inner').animate({opacity: 1.0}, 500);
+			}
+			else {
+				$('.article[id="'+v["url"]+'"').children('.article_inner').animate({opacity: 0.5}, 500);
+			}
+		}
+	});
+
+	//update data points
+	article_count += entry["articles"].length;
+	nyt_per_count += entry["nyt_per"];
+	nyt_geo_count += entry["nyt_geo"];
+	nyt_topic_count += entry["nyt_topic"];
+
+	//display data points
+	$('#article_count').html(convert(article_count));
+	$('#word_count').html(convert(word_count));
+	$('#pv_count').html(convert(pv_count));
+	$('#nyt_per_count').html(convert(nyt_per_count));
+	$('#nyt_geo_count').html(convert(nyt_geo_count));
+	$('#nyt_topic_count').html(convert(nyt_topic_count));
+	$('#quote_count').html(convert(quote_count));
+
+}
 
 function strip(html)
 {
@@ -89,54 +145,10 @@ function strip(html)
    return tmp.textContent || tmp.innerText || "";
 }
 
-function findEntity(entity) {
-    for (var i = 0, len = entities.length; i < len; i++) {
-        if (entities[i].name === entity)
-            return entities[i]; // Return as soon as the object is found
-    }
-    return null; // The object was not found
+function getParam(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search.split('/')[0])||[,""])[1].replace(/\+/g, '%20'))||null
 }
 
-function topTens() {
-	$.getJSON( 'entities.json', function( data ) {
 
-		//clear topic lists
-		top_topic = [];
-		top_nyt_per = [];
-		top_nyt_geo = [];
-		top_nyt_org = [];
 
-		thread = data[threadID]["thread"];
-		thread["entities"].sort(custom_sort).reverse(); //sort by number of dates mentioned, descending
 
-		//populate top entity lists
-
-		$.each(thread["entities"], function( key, val ) {
-			if (window["top_" + val["type"]]) {
-				if (window["top_" + val["type"]].length < 10) {
-					window["top_" + val["type"]].push(val["content"]);
-				}
-			}
-		});
-
-		//display top 10s
-		$.each(top_topic, function() {
-			$('#top_topic').children('ol').append('<li>'+this+'</li>');
-		});
-		$.each(top_nyt_per, function() {
-			$('#top_nyt_per').children('ol').append('<li>'+this+'</li>');
-		});
-		$.each(top_nyt_geo, function() {
-			$('#top_nyt_geo').children('ol').append('<li>'+this+'</li>');
-		});
-		$.each(top_nyt_org, function() {
-			$('#top_nyt_org').children('ol').append('<li>'+this+'</li>');
-		});
-
-	});
-
-}
-
-function custom_sort(a, b) {
-    return a["dates"].length - b["dates"].length;
-}
