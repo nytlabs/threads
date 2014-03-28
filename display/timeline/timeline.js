@@ -61,7 +61,7 @@ function playTimeline() {
 	if (selected_date_index == json["entries"].length) {
 		$('#headline').html('');
 		$( "#playhead" ).animate({left: $('#points').offset().left + 'px'}, 1000 , "linear");
-		$('#headline').slideUp('slow');
+		$('.pt').removeClass('on');
 		clearInterval(t);
 		initActions();
 	}
@@ -97,13 +97,14 @@ function loadArticles() {
 		$.each(v["articles"], function(k,v) {
 			if(v["major"] == true) {
 				var body = strip(v["body"]);
+				var body = highlight(body, v);
 				$('#maintext').append('<div class="article" id="'+v["url"]+'" data-headline="'+v["headline"]+'"><div class="article_inner"><h1>'+v["headline"]+'</h1>'+'<div class="article_text">'+body+'</div></div></div>');
 			}
 		});
 	});
 
 	//make articles the right width
-	$('.article').css('width', (100 / json["major_articles"]) - 1.5 + '%');
+	$('.article').css('width', (100 / json["major_articles"]) - 1.6 + '%');
 }
 
 function loadContent(entry) {
@@ -112,22 +113,18 @@ function loadContent(entry) {
 
 	//update headlines and data
 	$.each(entry["articles"], function(k,v) {
+		$('#headline').append('<h2>'+entry["date"]+'</h1>')
 		$('#headline').append('<h1>'+v["headline"]+'</h1>')
 		word_count += v["wordcount"];
 		pv_count += v["clicks"];
 		quote_count += v["num_quotes"];
 
-		//fade out previously highlighted articles
-		$('.article[id="'+v["url"]+'"').prevAll().css('opacity',0.5);
 		//show the article text if it's a major article
 		if (v["major"] == true) {
-			if ($('.article[id="'+v["url"]+'"').is(':last-child') == false) {
-				$('.article[id="'+v["url"]+'"').children('.article_inner').animate({opacity: 1.0}, 500);
-			}
-			else {
-				$('.article[id="'+v["url"]+'"').children('.article_inner').animate({opacity: 0.5}, 500);
-			}
+			$('.article[id="'+v["url"]+'"').children('.article_inner').animate({opacity: 1.0}, 200);
 		}
+		//fade out previously highlighted articles
+		$('.article').css('opacity',0.5);
 	});
 
 	//update data points

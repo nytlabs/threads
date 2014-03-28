@@ -38,6 +38,7 @@ class Article:
 		self.section = None
 		self.authors = []
 		self.num_quotes = 0
+		self.entities = []
 
 class Event:
 	def __init__(self):
@@ -88,6 +89,7 @@ for thread in data:
 				a.url = article["_id"]
 				a.body = article["body"]
 				a.print_position = article["print_position"]
+				a.entities = article["entities"]
 				if a.print_position != '':
 					pos_num = int(re.sub("[^0-9]", "", a.print_position))
 				if pos_num < 4:

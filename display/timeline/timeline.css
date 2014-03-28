@@ -32,6 +32,9 @@ body,html {
 	display: inline-block;
 	margin: 0px 0px 0px 20px;
 }
+#nav li:hover {
+	cursor: pointer;
+}
 
 /* TIMELINE */
 #timeline {
@@ -39,7 +42,7 @@ body,html {
 	text-align:center; 
 	border-bottom: 1px solid #000; 
 	line-height:0.1em; 
-	margin:10px 0 30px;
+	margin:30px 0 10px;
 }
 .date {
 	font-family: 'Open Sans', sans-serif;
@@ -92,15 +95,24 @@ body,html {
 #headline {
 	height:60px;
 	text-align: center;
+	position: absolute;
+	top:350px;
+	left:0px;
+	width:100%;
+	z-index: 1000;
+}
+#headline h2 {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0.8em;
+	color:#666;
+	margin-bottom: 20px;
 }
 #headline h1 {
 	font-size: 1.3em;
 }
 
 /* ARTICLES */
-#main {
-	margin-top: 20px;
-}
+
 #major {
 	display: block;
 	font-family: 'Open Sans', sans-serif;
@@ -132,6 +144,27 @@ body,html {
 .article p {
 	display: block;
 	margin:3px 0px;
+}
+.article:hover {
+	cursor: pointer;
+}
+
+/* HIGHLIGHTS */
+
+.highlight {
+	background-color: none;
+}
+.topic.on {
+	background-color: #ED1C24;
+}
+.nyt_per.on {
+	background-color: #ED1C24;
+}
+.nyt_geo.on {
+	background-color: #ED1C24;
+}
+.nyt_org.on, .nyt_org_all.on {
+	background-color: #ED1C24;
 }
 
 
